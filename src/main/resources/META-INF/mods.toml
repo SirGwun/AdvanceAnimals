@@ -1,0 +1,14 @@
+
+modLoader="javafml"
+loaderVersion="[52,)"
+
+license="MIT"
+
+[[mods]]
+modId="advanced_animals"
+version="0.1.0"
+displayName="Advanced Animals"
+authors="Radharaman, Ivan"
+description='''
+Мод углубляет и расширяет поведение ванильных животных
+'''
