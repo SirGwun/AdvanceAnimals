@@ -3,6 +3,7 @@ package com.example.examplemod;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -48,9 +49,7 @@ public class ExampleMod
     // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
-    // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEdible().nutrition(1).saturationModifier(2f).build())));
+    public static final RegistryObject<Item> TEST_ITEM = ITEMS.register("test_item", () -> new TestItem(new Item.Properties().stacksTo(1)));
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
@@ -63,6 +62,7 @@ public class ExampleMod
     public ExampleMod(FMLJavaModLoadingContext context)
     {
         LOGGER.info("Mod started!");
+
         IEventBus modEventBus = context.getModEventBus();
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -84,6 +84,7 @@ public class ExampleMod
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
+    //После форжа и конеструктора
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         // Some common setup code
@@ -105,6 +106,7 @@ public class ExampleMod
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
+    // перед загрузкой мира
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
@@ -114,6 +116,7 @@ public class ExampleMod
 
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    // после комон сетап
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents
     {
